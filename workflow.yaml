@@ -20,12 +20,12 @@ nodes:
             - "**/build/**"
 
 
-  - id: install-package-skill
-    name: Install Package Skill
-    type: automatic
-    steps:
-      - id: install-package-skill
-        name: Install package skill
-        install-skill:
-          package: "sort-to-tosorted"
-          path: "./agents/skill/sort-to-tosorted/SKILL.md"
+  # - id: install-package-skill
+  #   name: Install Package Skill
+  #   type: automatic
+  #   steps:
+  #     - id: install-package-skill
+  #       name: Install package skill
+  #       install-skill:
+  #         package: "sort-to-tosorted"
+  #         path: "./agents/skill/sort-to-tosorted/SKILL.md"
