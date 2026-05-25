@@ -12,7 +12,8 @@ import type TSX from "codemod:ast-grep/langs/tsx";
 // Make sure this is in sync with workflow.yaml where you specify the language for the codemod.
 type JSOrTS = JS | TS | TSX;
 
-const codemod: Codemod<JSOrTS> = async (root) => {
+/*
+const codemod_example: Codemod<JSOrTS> = async (root) => {
   const rootNode = root.root();
 
   const nodes = rootNode.findAll({
@@ -29,6 +30,31 @@ const codemod: Codemod<JSOrTS> = async (root) => {
 
   const newSource = rootNode.commitEdits(edits);
   return newSource;
+};
+*/
+
+// Codemod to convert `[...array].sort()` into `array.toSorted()` (ES2023)
+const codemod: Codemod<JSOrTS> = async (root) => {
+  const rootNode = root.root();
+
+  const nodes = rootNode.findAll({
+    rule: { pattern: "[...$ARRAY].sort($$$ARGS)" },
+  });
+
+  const edits = nodes.map((node) => {
+    const arrayExpr = node.getMatch("ARRAY")?.text();
+
+    if (!arrayExpr) return null;
+
+    const args = node.field("arguments");
+
+    if (!args) throw new Error(`Arguments are somehow missing -> ${node.text()}`);
+
+    const edit = node.replace(`${arrayExpr}.toSorted${args.text()}`);
+    return edit;
+  }).filter((edit): edit is NonNullable<typeof edit> => edit !== null);
+
+  return rootNode.commitEdits(edits);
 };
 
 export default codemod;
