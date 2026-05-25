@@ -1,6 +1,6 @@
 {
   "name": "sort-to-tosorted",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Codemod to convert `[...array].sort()` into `array.toSorted()` (ES2023)",
   "packageManager": "npm@10.x",
   "type": "module",
