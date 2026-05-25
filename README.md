@@ -2,6 +2,34 @@
 
 Codemod to convert `[...array].sort()` into `array.toSorted()` (ES2023)
 
+## Run the script directly from the Codemod Registry
+
+```bash
+npx codemod@latest sort-to-tosorted
+```
+
+
+## Examples
+
+Before:
+```ts
+const a = [...items].sort();
+const b = [...getItems()].sort((x, y) => x - y);
+const c = [...arr].sort(compareFn);
+const keep = [...a, b].sort();
+const keep2 = items.sort();
+
+```
+
+After:
+```ts
+const a = items.toSorted();
+const b = getItems().toSorted((x, y) => x - y);
+const c = arr.toSorted(compareFn);
+const keep = [...a, b].sort();
+const keep2 = items.sort();
+```
+
 ## Installation
 
 ```bash
@@ -38,8 +66,4 @@ codemod publish
 
 MIT
 
-## Skill Installation
 
-```bash
-npx codemod@latest sort-to-tosorted
-```
