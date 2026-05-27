@@ -10,7 +10,7 @@ import type TSX from "codemod:ast-grep/langs/tsx";
 // - If you do not care about TypeScript features and want to target plain JavaScript files, use JS.
 //
 // Make sure this is in sync with workflow.yaml where you specify the language for the codemod.
-type JSOrTS = JS | TS | TSX;
+type JSOrTSorTSX = JS | TS | TSX;
 
 /*
 const codemod_example: Codemod<JSOrTS> = async (root) => {
@@ -34,7 +34,7 @@ const codemod_example: Codemod<JSOrTS> = async (root) => {
 */
 
 // Codemod to convert `[...array].sort()` into `array.toSorted()` (ES2023)
-const codemod: Codemod<JSOrTS> = async (root) => {
+const codemod: Codemod<JSOrTSorTSX> = async (root) => {
   const rootNode = root.root();
 
   const nodes = rootNode.findAll({
